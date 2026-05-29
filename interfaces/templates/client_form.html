@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{% if client %}Редактировать{% else %}Новый клиент{% endif %}</h1>
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+<form method="POST">
+    <div class="mb-3"><label>ФИО</label><input type="text" name="full_name" class="form-control" required></div>
+    <div class="mb-3"><label>Телефон</label><input type="text" name="phone" class="form-control" required></div>
+    <div class="mb-3"><label>Email</label><input type="email" name="email" class="form-control" required></div>
+    <div class="mb-3"><label>Дата рождения</label><input type="date" name="birthday" class="form-control"></div>
+    <button type="submit" class="btn btn-success">Сохранить</button>
+    <a href="{{ url_for('clients_list') }}" class="btn btn-secondary">Отмена</a>
+</form>
+{% endblock %}

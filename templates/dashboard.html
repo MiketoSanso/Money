@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Панель управления</h1>
+<div class="row mt-4">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <h5>Клиентов</h5>
+                <h2>{{ stats.total_clients }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <h5>Заказов сегодня</h5>
+                <h2>{{ stats.orders_today }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning">
+            <div class="card-body">
+                <h5>Активных заказов</h5>
+                <h2>{{ stats.active_orders }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-danger">
+            <div class="card-body">
+                <h5>Выручка сегодня</h5>
+                <h2>{{ stats.revenue_today }} ₽</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Быстрые действия</div>
+            <div class="card-body">
+                <a href="{{ url_for('client_create') }}" class="btn btn-outline-primary">+ Новый клиент</a>
+                <a href="{{ url_for('order_create') }}" class="btn btn-outline-success">+ Новый заказ</a>
+                <a href="{{ url_for('calendar') }}" class="btn btn-outline-info">Расписание</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Отчёты</h1>
+<form method="GET" class="row g-3 mb-4">
+    <div class="col-auto"><label>С</label><input type="date" name="start_date" value="{{ start_date }}" class="form-control"></div>
+    <div class="col-auto"><label>По</label><input type="date" name="end_date" value="{{ end_date }}" class="form-control"></div>
+    <div class="col-auto"><button type="submit" class="btn btn-primary mt-4">Показать</button></div>
+</form>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card"><div class="card-header">Основные показатели</div>
+        <div class="card-body">
+            <p>Всего заказов: <strong>{{ report.total_orders }}</strong></p>
+            <p>Выручка: <strong>{{ report.total_revenue }} ₽</strong></p>
+            <p>Средний чек: <strong>{{ "%.2f"|format(report.avg_order_value) }} ₽</strong></p>
+        </div></div>
+    </div>
+    <div class="col-md-6">
+        <div class="card"><div class="card-header">Топ клиентов</div>
+        <div class="card-body">
+            <ul>{% for client in report.top_clients %}<li>{{ client.full_name }}: {{ client.total }} ₽</li>{% endfor %}</ul>
+        </div></div>
+    </div>
+</div>
+<div class="card mt-3"><div class="card-header">Статистика фотографов</div>
+<div class="card-body">
+    <table class="table"><thead><tr><th>Фотограф</th><th>Заказов</th><th>Выручка</th></tr></thead>
+    <tbody>{% for stat in report.photographer_stats %}<tr><td>{{ stat.name }}</td><td>{{ stat.orders_count }}</td><td>{{ stat.revenue }} ₽</td></tr>{% endfor %}</tbody>
+    </table>
+</div></div>
+{% endblock %}

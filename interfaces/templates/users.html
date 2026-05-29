@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Пользователи</h1>
+<table class="table table-striped">
+    <thead><tr><th>ID</th><th>Логин</th><th>ФИО</th><th>Роль</th><th>Телефон</th><th>Email</th></tr></thead>
+    <tbody>
+        {% for u in users %}
+        <tr><td>{{ u.id }}</td><td>{{ u.login }}</td><td>{{ u.full_name }}</td><td>{{ u.role.value }}</td><td>{{ u.phone }}</td><td>{{ u.email }}</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

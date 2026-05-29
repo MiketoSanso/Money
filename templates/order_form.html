@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Новый заказ</h1>
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+<form method="POST">
+    <div class="mb-3">
+        <label>Клиент</label>
+        <select name="client_id" class="form-control" required>
+            <option value="">Выберите клиента</option>
+            {% for client in clients %}
+            <option value="{{ client.id }}">{{ client.full_name }} ({{ client.phone }})</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Фотограф</label>
+        <select name="photographer_id" class="form-control">
+            <option value="">Не выбран</option>
+            <option value="2">Иванов Иван</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Услуги</label>
+        <div id="services-container">
+            <div class="row mb-2">
+                <div class="col"><select name="service_id[]" class="form-control">
+                    <option value="">Выберите услугу</option>
+                    {% for service in services %}
+                    <option value="{{ service.id }}">{{ service.name }} - {{ service.price }} ₽/{{ service.unit }}</option>
+                    {% endfor %}
+                </select></div>
+                <div class="col"><input type="number" name="quantity[]" class="form-control" placeholder="Кол-во" step="0.01"></div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-sm btn-secondary" onclick="addService()">+ Добавить услугу</button>
+    </div>
+    <div class="mb-3"><label>Срок (дедлайн)</label><input type="datetime-local" name="deadline" class="form-control"></div>
+    <div class="mb-3"><label>Примечания</label><textarea name="notes" class="form-control" rows="3"></textarea></div>
+    <button type="submit" class="btn btn-success">Создать заказ</button>
+    <a href="{{ url_for('orders_list') }}" class="btn btn-secondary">Отмена</a>
+</form>
+<script>
+function addService() {
+    const container = document.getElementById('services-container');
+    const div = document.createElement('div');
+    div.className = 'row mb-2';
+    div.innerHTML = '<div class="col"><select name="service_id[]" class="form-control">{% for service in services %}<option value="{{ service.id }}">{{ service.name }} - {{ service.price }} ₽/{{ service.unit }}</option>{% endfor %}</select></div><div class="col"><input type="number" name="quantity[]" class="form-control" placeholder="Кол-во" step="0.01"></div>';
+    container.appendChild(div);
+}
+</script>
+{% endblock %}
