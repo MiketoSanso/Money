@@ -8,7 +8,7 @@
 
 - Python 3.10+
 - Flask 2.3
-- SQLite + SQLAlchemy
+- PostgreSQL + SQLAlchemy
 - Bootstrap 5 + FullCalendar.js
 
 ## Установка и запуск
